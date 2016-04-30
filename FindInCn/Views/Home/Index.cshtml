@@ -4,9 +4,17 @@
 
 <div>
     <br />
-    @foreach(var i in new FindInCn.Shared.Models.CnContext().Shops)
-    {
-        <h4>@i.Name</h4>
-    }
+    <h1 class="page-header">Dashboard</h1>
+
+    <div class="row placeholders">
+        @foreach (var i in new FindInCn.Shared.Models.CnContext().Shops)
+        {
+            <div class="col-xs-6 col-sm-3 placeholder">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                <h4>@i.Name</h4>
+                <span class="text-muted">@i.ShopId</span>
+            </div>
+        }
+    </div>
     <br />
 </div>

@@ -13,8 +13,11 @@ namespace FindInCn.Shared.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ShopId { get; set; }
+
         public string Name { get; set; }
+
         public string SearchUrl { get; set; }
+
         public string MainPage { get; set; }
     }
 }
