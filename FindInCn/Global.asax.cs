@@ -1,4 +1,5 @@
 ﻿using FindInCn.Shared.Models;
+using FindInCn.Shared.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +12,25 @@ namespace FindInCn
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        void Init()
+        protected void Application_Start()
+        {
+            //InitData();
+            AreaRegistration.RegisterAllAreas();
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        private void InitData()
         {
             var c = new CnContext();
             c.Shops.Add(
-                new Shop()
-                {
-                    Name = "AliExpress",
-                    SearchUrl = "http://aliexpress.com/wholesale?SearchText={0}",
-                    MainPage = "http://ru.aliexpress.com/ru_home.htm"
-                });
+                    new Shop()
+                    {
+                        Name = "AliExpress",
+                        SearchUrl = "http://aliexpress.com/wholesale?SearchText={0}",
+                        MainPage = "http://ru.aliexpress.com/ru_home.htm"
+                    });
 
             c.Shops.Add(
                 new Shop()
@@ -29,15 +39,8 @@ namespace FindInCn
                     SearchUrl = "http://www.gearbest.com/{0}-_gear/",
                     MainPage = "http://www.gearbest.com/"
                 });
-        }
 
-        protected void Application_Start()
-        {
-            Init();
-            AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            c.SaveChanges();
         }
     }
 }

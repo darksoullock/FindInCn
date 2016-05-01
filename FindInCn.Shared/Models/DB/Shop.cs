@@ -6,13 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FindInCn.Shared.Models
+namespace FindInCn.Shared.Models.DB
 {
     public class Shop
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ShopId { get; set; }
+
+        public string ClassName { get; set; }
 
         public string Name { get; set; }
 

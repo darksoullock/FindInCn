@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -49,12 +53,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\RemoteHelper.cs" />
     <Compile Include="Helpers\WebHelper.cs" />
-    <Compile Include="Models\CnContext.cs" />
+    <Compile Include="Migrations\201605011339136_InitialCreate.cs" />
+    <Compile Include="Migrations\201605011339136_InitialCreate.Designer.cs">
+      <DependentUpon>201605011339136_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605011347148_Initial.cs" />
+    <Compile Include="Migrations\201605011347148_Initial.Designer.cs">
+      <DependentUpon>201605011347148_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DB\CnContext.cs" />
     <Compile Include="Models\Remote\IRemoteSearchItem.cs" />
     <Compile Include="Models\Remote\IRemoteShop.cs" />
+    <Compile Include="Models\Remote\Shops\AliExpress.cs" />
     <Compile Include="Models\Remote\Shops\GearBest.cs" />
-    <Compile Include="Models\Shop.cs" />
+    <Compile Include="Models\DB\Shop.cs" />
+    <Compile Include="Models\Remote\Shops\GenericSearchItem.cs" />
+    <Compile Include="Models\SearchOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RemoteRepositories\RemoteRepository.cs" />
   </ItemGroup>
@@ -64,6 +81,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\DbRepositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605011339136_InitialCreate.resx">
+      <DependentUpon>201605011339136_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605011347148_Initial.resx">
+      <DependentUpon>201605011347148_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

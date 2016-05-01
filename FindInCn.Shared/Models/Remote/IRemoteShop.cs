@@ -14,7 +14,7 @@ namespace FindInCn.Shared.Models.Remote
 
         IDictionary<string, string> Categories { get; }
 
-        IEnumerable<IRemoteSearchItem> Search();
+        IEnumerable<IRemoteSearchItem> Search(SearchOptions options);
 
         void Init(string name, string url, string searchUrl, string categoriesUrl);
     }

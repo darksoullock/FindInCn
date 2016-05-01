@@ -17,14 +17,16 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
         public string Url { get; set; }
 
-        public IEnumerable<IRemoteSearchItem> Search()
+        public IEnumerable<IRemoteSearchItem> Search(SearchOptions options)
         {
             if (SearchUrl==null)
             {
                 throw new ArgumentNullException(NotInitializedExceptionMessage);
             }
 
-            throw new NotImplementedException();
+            //TODO search
+            //throw new NotImplementedException();
+            return new List<IRemoteSearchItem>();
         }
 
         public IDictionary<string, string> Categories

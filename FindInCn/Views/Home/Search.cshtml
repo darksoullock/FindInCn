@@ -1,0 +1,15 @@
+﻿@model IEnumerable<FindInCn.Shared.Models.Remote.IRemoteSearchItem>
+@{
+    ViewBag.Title = "SearchResult";
+}
+
+<h2>SearchResult</h2>
+
+@foreach (var i in Model)
+{
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <img src="@i.ImageUrl" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+        <h4>@i.Name</h4>
+        @*<span class="text-muted">@i.ShopId</span>*@
+    </div>
+}
