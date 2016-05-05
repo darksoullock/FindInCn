@@ -22,10 +22,17 @@ namespace FindInCn.Controllers
 
         public ActionResult Search(string q)
         {
-            var shops = repository.GetAllShops();
+            var shops = repository.GetRemoteShops();
             var result = RemoteHelper.Search(shops, new SearchOptions() { Name = q });
 
             return View(result.ToArray());
+        }
+
+        public ActionResult StoreInfo(int id)
+        {
+            var shop = repository.GetRemoteShop(id);
+            ViewBag.ShowCategories = false;
+            return View(shop);
         }
     }
 }

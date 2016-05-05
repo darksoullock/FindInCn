@@ -1,0 +1,13 @@
+﻿@model FindInCn.Shared.Models.Remote.IRemoteShop
+@{
+    ViewBag.Title = "StoreInfo";
+}
+
+<h4>available categories:</h4>
+<ul class="list-group">
+    @foreach (var i in Model.Categories)
+    {
+        <li class="list-group-item">@i.Key</li>
+    }
+</ul>
+

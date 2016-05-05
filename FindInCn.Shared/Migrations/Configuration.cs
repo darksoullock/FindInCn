@@ -15,6 +15,24 @@ namespace FindInCn.Shared.Migrations
 
         protected override void Seed(FindInCn.Shared.Models.DB.CnContext context)
         {
+            context.Categories.AddOrUpdate(new Models.DB.Category[]
+            {
+                new Models.DB.Category() {Name="All Categories" },
+                new Models.DB.Category() {Name="Mobile Phones" },
+                new Models.DB.Category() {Name="Tablet PC & Accessories" },
+                new Models.DB.Category() {Name="Computers & Networking" },
+                new Models.DB.Category() {Name="Electrical & Tools" },
+                new Models.DB.Category() {Name="Toys & Hobbies" },
+                new Models.DB.Category() {Name="Consumer Electronics" },
+                new Models.DB.Category() {Name="Automobiles & Motorcycle" },
+                new Models.DB.Category() {Name="Home & Garden" },
+                new Models.DB.Category() {Name="Outdoors & Sports" },
+                new Models.DB.Category() {Name="LED Lights & Flashlights" },
+                new Models.DB.Category() {Name="Apple Accessories" },
+                new Models.DB.Category() {Name="Watches & Jewelry" },
+                new Models.DB.Category() {Name="Apparel" }
+            });
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

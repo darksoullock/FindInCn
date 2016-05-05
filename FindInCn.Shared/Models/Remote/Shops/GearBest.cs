@@ -3,6 +3,7 @@ using FindInCn.Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,9 +16,13 @@ namespace FindInCn.Shared.Models.Remote.Shops
             
         }
 
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Url { get; set; }
+
+        public string Logo { get { return "http://css.gearbest.com/imagecache/GB2/images/domeimg/index/logo.png"; } }
 
         public IEnumerable<IRemoteSearchItem> Search(SearchOptions options)
         {
@@ -56,7 +61,17 @@ namespace FindInCn.Shared.Models.Remote.Shops
                     throw new ArgumentNullException(NotInitializedExceptionMessage);
                 }
 
-                throw new NotImplementedException();
+                Dictionary<string, string> result = new Dictionary<string, string>();
+                CQ dom = WebHelper.GetHttpResponse(CategoriesUrl);
+                dom = dom["select.searchSelect"].FirstOrDefault().InnerHTML;
+
+                foreach (var item in dom["option"])
+                {
+                    CQ listItem = item.InnerHTML;
+                    result.Add(WebUtility.HtmlDecode(item.InnerText), item.GetAttribute("value"));
+                }
+
+                return result;
             }
         }
 
@@ -66,8 +81,9 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
         string NotInitializedExceptionMessage = "Call Init() before use this method";
 
-        public void Init(string name, string url, string searchUrl, string categoriesUrl)
+        public void Init(int id, string name, string url, string searchUrl, string categoriesUrl)
         {
+            Id = id;
             Name = name;
             Url = url;
             SearchUrl = searchUrl;

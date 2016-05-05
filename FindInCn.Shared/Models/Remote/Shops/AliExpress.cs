@@ -16,9 +16,16 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
         }
 
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Url { get; set; }
+
+        public string Logo
+        {
+            get { return "https://lh3.googleusercontent.com/nHVoq8tujVi-kNdEWWUivSxPCc9XEtT7Nk10oGfkyg6KdU0dPkOulKbVOLTj_4bDEu8=w300"; }
+        }
 
         public IEnumerable<IRemoteSearchItem> Search(SearchOptions options)
         {
@@ -59,7 +66,17 @@ namespace FindInCn.Shared.Models.Remote.Shops
                     throw new ArgumentNullException(NotInitializedExceptionMessage);
                 }
 
-                throw new NotImplementedException();
+                Dictionary<string, string> result = new Dictionary<string, string>();
+                CQ dom = WebHelper.GetHttpResponse(CategoriesUrl);
+
+                foreach (var item in dom["dl.sub-cate-items dt a"])
+                {
+                    CQ listItem = item.InnerHTML;
+                    var key = WebUtility.HtmlDecode(item.InnerText);
+                    result[key] = item.GetAttribute("href");
+                }
+
+                return result;
             }
         }
 
@@ -69,8 +86,9 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
         string NotInitializedExceptionMessage = "Call Init() before use this method";
 
-        public void Init(string name, string url, string searchUrl, string categoriesUrl)
+        public void Init(int id, string name, string url, string searchUrl, string categoriesUrl)
         {
+            Id = id;
             Name = name;
             Url = url;
             SearchUrl = searchUrl;
