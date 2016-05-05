@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CsQuery;
+using FindInCn.Shared.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,9 +26,25 @@ namespace FindInCn.Shared.Models.Remote.Shops
                 throw new ArgumentNullException(NotInitializedExceptionMessage);
             }
 
-            //TODO search
-            //throw new NotImplementedException();
-            return new List<IRemoteSearchItem>();
+            var result = new List<IRemoteSearchItem>();
+
+            CQ dom = WebHelper.GetHttpResponse(string.Format(SearchUrl, options.Name));
+            dom = dom["div.catePro_ListBox"].FirstOrDefault().InnerHTML;
+
+            foreach (var item in dom["li"])
+            {
+                CQ listItem = item.InnerHTML;
+                var link = listItem["p.all_proNam a"].FirstOrDefault();
+                result.Add(new GenericSearchItem<GearBest>()
+                {
+                    Name = link.GetAttribute("title"),
+                    Url = link.GetAttribute("href"),
+                    ImageUrl = listItem["img"].FirstOrDefault().GetAttribute("data-original"),
+                    PriceString = listItem["span.my_shop_price"].FirstOrDefault().InnerText + "USD"
+                });
+            }
+
+            return result;
         }
 
         public IDictionary<string, string> Categories

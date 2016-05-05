@@ -18,7 +18,9 @@ namespace FindInCn.Shared.Helpers
                 result.AddRange(i.Search(options));
             }
 
-            return result;
+            Random rnd = new Random();
+            // TODO Performance -- write custom shuffle
+            return result.OrderBy(i=>rnd.Next());
         }
     }
 }

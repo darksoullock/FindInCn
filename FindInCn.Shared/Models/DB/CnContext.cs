@@ -9,6 +9,11 @@ namespace FindInCn.Shared.Models.DB
 {
     public class CnContext : DbContext
     {
+        public CnContext() : base("name=FindInCnConnectionString")
+        {
+
+        }
+
         public DbSet<Shop> Shops { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CsQuery;
+using System.Net;
 
 namespace FindInCn.Shared.Models.Remote.Shops
 {
@@ -35,16 +36,15 @@ namespace FindInCn.Shared.Models.Remote.Shops
                 CQ listItem = item.InnerHTML;
                 result.Add(new GenericSearchItem<AliExpress>()
                 {
-                    Name = listItem["a.picRind"].FirstOrDefault()?.InnerText,
-                    ImageUrl = listItem["img.picCore"].FirstOrDefault()?.GetAttribute("src")
+                    Name = listItem["img.picCore"].FirstOrDefault()?.GetAttribute("alt"),
+                    ImageUrl = listItem["img.picCore"].FirstOrDefault()?.GetAttribute("src"),
+                    Url = listItem["a.picRind"].FirstOrDefault()?.GetAttribute("href"),
+                    PriceString = WebUtility.HtmlDecode(listItem["span.value"].FirstOrDefault(i => i.HasAttribute("itemprop") && i.GetAttribute("itemprop") == "price")?.InnerText)
                 });
             }
 
-            //Console.WriteLine($"pic -- {listItem["img.picCore"].FirstOrDefault()?.GetAttribute("src")}");
-            //Console.WriteLine($"item -- {listItem["a.picRind"].FirstOrDefault()?.GetAttribute("href")}");
             //Console.WriteLine($"store -- {listItem["a.store"].FirstOrDefault()?.GetAttribute("title")}");
             //Console.WriteLine($"store address -- {listItem["a.store"].FirstOrDefault()?.GetAttribute("href")}");
-            //Console.WriteLine($"price -- {listItem["span.value"].FirstOrDefault(i => i.HasAttribute("itemprop") && i.GetAttribute("itemprop") == "price")?.InnerText}");
             //Console.WriteLine($"seller score -- {listItem["span.score-icon-new"].FirstOrDefault()?.GetAttribute("sellerPositiveFeedbackPercentage")}");
             //Console.WriteLine($"seller feedback -- {listItem["a.score-dot"].FirstOrDefault()?.GetAttribute("href")}");
             return result;

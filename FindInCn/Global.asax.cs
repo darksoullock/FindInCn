@@ -28,6 +28,7 @@ namespace FindInCn
                     new Shop()
                     {
                         Name = "AliExpress",
+                        ClassName= "FindInCn.Shared.Models.Remote.Shops.AliExpress",
                         SearchUrl = "http://aliexpress.com/wholesale?SearchText={0}",
                         MainPage = "http://ru.aliexpress.com/ru_home.htm"
                     });
@@ -36,6 +37,7 @@ namespace FindInCn
                 new Shop()
                 {
                     Name = "GearBest",
+                    ClassName = "FindInCn.Shared.Models.Remote.Shops.GearBest",
                     SearchUrl = "http://www.gearbest.com/{0}-_gear/",
                     MainPage = "http://www.gearbest.com/"
                 });

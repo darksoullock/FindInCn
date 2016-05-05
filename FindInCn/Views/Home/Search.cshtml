@@ -8,8 +8,10 @@
 @foreach (var i in Model)
 {
     <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="@i.ImageUrl" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-        <h4>@i.Name</h4>
-        @*<span class="text-muted">@i.ShopId</span>*@
+        <a href="@i.Url">
+            <img src="@i.ImageUrl" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>@i.Name</h4>
+            @*<span class="text-muted">@i.ShopId</span>*@
+        </a>
     </div>
 }

@@ -20,8 +20,10 @@ namespace FindInCn.Shared.Models.Remote
 
         decimal Price { get; }
 
+        string PriceString { get; }
+
         string Currency { get; }
-        
+
         //feedback
     }
 }
