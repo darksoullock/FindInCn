@@ -206,6 +206,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\StoreInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

@@ -15,5 +15,9 @@ namespace FindInCn.Shared.Models.DB
         }
 
         public DbSet<Shop> Shops { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<CategoryToShopSpecificIdMapping> CategoryToShopSpecificIdMappings { get; set; }
     }
 }

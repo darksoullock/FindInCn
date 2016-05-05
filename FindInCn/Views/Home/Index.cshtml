@@ -4,17 +4,19 @@
 
 <div>
     <br />
-    <h1 class="page-header">Select a category or try to search something</h1>
+    <h3 class="page-header">Select a category or try to search something</h3>
+    <h2> Here is a list of supported shops: </h2>
 
     <div class="row placeholders">
-        @foreach (var i in new FindInCn.Shared.Models.DB.CnContext().Shops)
+        @foreach (var i in new FindInCn.Shared.Repositories.RemoteRepositories.RemoteRepository().GetRemoteShops())
         {
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                <h4>@i.Name</h4>
-                <span class="text-muted">@i.ShopId</span>
+            <div class="col-xs-6 col-sm-3" style="min-height:200px;min-width:200px;">
+                <a href="@Url.Action("StoreInfo")/@i.Id" style="vertical-align:central;">
+                    <img src="@i.Logo" width="200" height="200" class="img-thumbnail" style="background-color:darkgray;">
+                    <h4 style="vertical-align:bottom">@i.Name</h4>
+                </a>
             </div>
-        }%
+        }
     </div>
     <br />
 </div>

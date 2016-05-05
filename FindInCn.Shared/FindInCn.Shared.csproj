@@ -63,7 +63,17 @@
     <Compile Include="Migrations\201605011347148_Initial.Designer.cs">
       <DependentUpon>201605011347148_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605050914044_AddedCategories.cs" />
+    <Compile Include="Migrations\201605050914044_AddedCategories.Designer.cs">
+      <DependentUpon>201605050914044_AddedCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605050934235_AddedCategoriesMap.cs" />
+    <Compile Include="Migrations\201605050934235_AddedCategoriesMap.Designer.cs">
+      <DependentUpon>201605050934235_AddedCategoriesMap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DB\Category.cs" />
+    <Compile Include="Models\DB\CategoryToShopSpecificIdMapping.cs" />
     <Compile Include="Models\DB\CnContext.cs" />
     <Compile Include="Models\Remote\IRemoteSearchItem.cs" />
     <Compile Include="Models\Remote\IRemoteShop.cs" />
@@ -73,21 +83,28 @@
     <Compile Include="Models\Remote\Shops\GenericSearchItem.cs" />
     <Compile Include="Models\SearchOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DbRepositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\DbRepositories\DbRepository.cs" />
+    <Compile Include="Repositories\DbRepositories\ShopRepository.cs" />
     <Compile Include="Repositories\RemoteRepositories\RemoteRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\DbRepositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605011339136_InitialCreate.resx">
       <DependentUpon>201605011339136_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605011347148_Initial.resx">
       <DependentUpon>201605011347148_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605050914044_AddedCategories.resx">
+      <DependentUpon>201605050914044_AddedCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605050934235_AddedCategoriesMap.resx">
+      <DependentUpon>201605050934235_AddedCategoriesMap.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
