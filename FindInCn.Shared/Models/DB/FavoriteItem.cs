@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace FindInCn.Shared.Models.DB
 {
-    public class CategoryToShopSpecificIdMapping
+    public class FavoriteItem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public virtual User User { get; set; }
+
         public virtual Shop Shop { get; set; }
 
-        public virtual Category Category { get; set; }
-
-        public string RemoteCategoryId { get; set; }
+        public string ItemUrl { get; set; }
     }
 }

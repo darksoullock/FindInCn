@@ -71,10 +71,16 @@
     <Compile Include="Migrations\201605050934235_AddedCategoriesMap.Designer.cs">
       <DependentUpon>201605050934235_AddedCategoriesMap.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605110755154_UsersAndFavorites.cs" />
+    <Compile Include="Migrations\201605110755154_UsersAndFavorites.Designer.cs">
+      <DependentUpon>201605110755154_UsersAndFavorites.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB\Category.cs" />
     <Compile Include="Models\DB\CategoryToShopSpecificIdMapping.cs" />
     <Compile Include="Models\DB\CnContext.cs" />
+    <Compile Include="Models\DB\FavoriteItem.cs" />
+    <Compile Include="Models\DB\User.cs" />
     <Compile Include="Models\Remote\IRemoteSearchItem.cs" />
     <Compile Include="Models\Remote\IRemoteShop.cs" />
     <Compile Include="Models\Remote\Shops\AliExpress.cs" />
@@ -90,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
@@ -105,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605050934235_AddedCategoriesMap.resx">
       <DependentUpon>201605050934235_AddedCategoriesMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605110755154_UsersAndFavorites.resx">
+      <DependentUpon>201605110755154_UsersAndFavorites.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
