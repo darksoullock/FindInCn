@@ -42,9 +42,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,7 +58,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\FilterHelper.cs" />
+    <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Helpers\RemoteHelper.cs" />
+    <Compile Include="Helpers\SortHelper.cs" />
     <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Migrations\201605011339136_InitialCreate.cs" />
     <Compile Include="Migrations\201605011339136_InitialCreate.Designer.cs">
@@ -75,11 +83,20 @@
     <Compile Include="Migrations\201605110755154_UsersAndFavorites.Designer.cs">
       <DependentUpon>201605110755154_UsersAndFavorites.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605160813294_logo.cs" />
+    <Compile Include="Migrations\201605160813294_logo.Designer.cs">
+      <DependentUpon>201605160813294_logo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605160927214_token.cs" />
+    <Compile Include="Migrations\201605160927214_token.Designer.cs">
+      <DependentUpon>201605160927214_token.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB\Category.cs" />
     <Compile Include="Models\DB\CategoryToShopSpecificIdMapping.cs" />
     <Compile Include="Models\DB\CnContext.cs" />
     <Compile Include="Models\DB\FavoriteItem.cs" />
+    <Compile Include="Models\DB\Tokens.cs" />
     <Compile Include="Models\DB\User.cs" />
     <Compile Include="Models\Remote\IRemoteSearchItem.cs" />
     <Compile Include="Models\Remote\IRemoteShop.cs" />
@@ -89,6 +106,7 @@
     <Compile Include="Models\Remote\Shops\GenericSearchItem.cs" />
     <Compile Include="Models\SearchOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DbRepositories\AccountRepository.cs" />
     <Compile Include="Repositories\DbRepositories\CategoryRepository.cs" />
     <Compile Include="Repositories\DbRepositories\DbRepository.cs" />
     <Compile Include="Repositories\DbRepositories\ShopRepository.cs" />
@@ -115,6 +133,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605110755154_UsersAndFavorites.resx">
       <DependentUpon>201605110755154_UsersAndFavorites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605160813294_logo.resx">
+      <DependentUpon>201605160813294_logo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605160927214_token.resx">
+      <DependentUpon>201605160927214_token.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

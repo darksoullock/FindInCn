@@ -10,7 +10,9 @@ namespace FindInCn.Shared.Models.Remote.Shops
     {
         public string Name { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal MinPrice { get; set; }
+
+        public decimal MaxPrice { get; set; }
 
         public string PriceString { get; set; }
         

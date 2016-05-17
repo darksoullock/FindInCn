@@ -1,5 +1,6 @@
 ﻿using CsQuery;
 using FindInCn.Shared.Helpers;
+using FindInCn.Shared.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,29 +12,18 @@ namespace FindInCn.Shared.Models.Remote.Shops
 {
     public class GearBest : IRemoteShop
     {
-        public GearBest()
+        public GearBest(Shop info)
         {
-            
+            Init(info);
         }
 
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Url { get; set; }
-
-        public string Logo { get { return "http://css.gearbest.com/imagecache/GB2/images/domeimg/index/logo.png"; } }
+        public Shop Info { get; set; }
 
         public IEnumerable<IRemoteSearchItem> Search(SearchOptions options)
         {
-            if (SearchUrl==null)
-            {
-                throw new ArgumentNullException(NotInitializedExceptionMessage);
-            }
-
             var result = new List<IRemoteSearchItem>();
 
-            CQ dom = WebHelper.GetHttpResponse(string.Format(SearchUrl, options.Name));
+            CQ dom = WebHelper.GetHttpResponse(string.Format(Info.SearchUrl, options.Name));
             dom = dom["div.catePro_ListBox"].FirstOrDefault().InnerHTML;
 
             foreach (var item in dom["li"])
@@ -56,13 +46,8 @@ namespace FindInCn.Shared.Models.Remote.Shops
         {
             get
             {
-                if (CategoriesUrl == null)
-                {
-                    throw new ArgumentNullException(NotInitializedExceptionMessage);
-                }
-
                 Dictionary<string, string> result = new Dictionary<string, string>();
-                CQ dom = WebHelper.GetHttpResponse(CategoriesUrl);
+                CQ dom = WebHelper.GetHttpResponse(Info.MainPage);
                 dom = dom["select.searchSelect"].FirstOrDefault().InnerHTML;
 
                 foreach (var item in dom["option"])
@@ -75,19 +60,9 @@ namespace FindInCn.Shared.Models.Remote.Shops
             }
         }
 
-        string SearchUrl;
-
-        string CategoriesUrl;
-
-        string NotInitializedExceptionMessage = "Call Init() before use this method";
-
-        public void Init(int id, string name, string url, string searchUrl, string categoriesUrl)
+        public void Init(Shop info)
         {
-            Id = id;
-            Name = name;
-            Url = url;
-            SearchUrl = searchUrl;
-            CategoriesUrl = categoriesUrl;
+            this.Info = info;
         }
     }
 }

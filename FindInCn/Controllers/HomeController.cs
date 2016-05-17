@@ -31,7 +31,6 @@ namespace FindInCn.Controllers
         public ActionResult StoreInfo(int id)
         {
             var shop = repository.GetRemoteShop(id);
-            ViewBag.ShowCategories = false;
             return View(shop);
         }
     }

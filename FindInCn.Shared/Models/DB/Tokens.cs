@@ -8,20 +8,18 @@ using System.Threading.Tasks;
 
 namespace FindInCn.Shared.Models.DB
 {
-    public class Shop
+    public class Tokens
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ShopId { get; set; }
+        public int TokenId { get; set; }
 
-        public string ClassName { get; set; }
+        public int UserId { get; set; }
 
-        public string Name { get; set; }
+        public virtual User User { get; set; }
 
-        public string SearchUrl { get; set; }
+        public DateTime ExpirationDate { get; set; }
 
-        public string MainPage { get; set; }
-
-        public string Logo { get; set; }
+        public bool IsActive { get; set; }
     }
 }

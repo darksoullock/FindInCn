@@ -6,35 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 using CsQuery;
 using System.Net;
+using FindInCn.Shared.Models.DB;
 
 namespace FindInCn.Shared.Models.Remote.Shops
 {
     public class AliExpress : IRemoteShop
     {
-        public AliExpress()
+        public AliExpress(Shop info)
         {
-
+            Init(info);
         }
 
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Url { get; set; }
-
-        public string Logo
-        {
-            get { return "https://lh3.googleusercontent.com/nHVoq8tujVi-kNdEWWUivSxPCc9XEtT7Nk10oGfkyg6KdU0dPkOulKbVOLTj_4bDEu8=w300"; }
-        }
+        public Shop Info { get; set; }
 
         public IEnumerable<IRemoteSearchItem> Search(SearchOptions options)
         {
-            if (SearchUrl == null)
-            {
-                throw new ArgumentNullException(NotInitializedExceptionMessage);
-            }
-
-            var data = WebHelper.GetHttpResponse(string.Format(SearchUrl, options.Name));
+            var data = WebHelper.GetHttpResponse(string.Format(Info.SearchUrl, options.Name));
             CQ dom = data.Replace("image-src", "src");
             List<IRemoteSearchItem> result = new List<IRemoteSearchItem>();
 
@@ -61,13 +48,8 @@ namespace FindInCn.Shared.Models.Remote.Shops
         {
             get
             {
-                if (CategoriesUrl == null)
-                {
-                    throw new ArgumentNullException(NotInitializedExceptionMessage);
-                }
-
                 Dictionary<string, string> result = new Dictionary<string, string>();
-                CQ dom = WebHelper.GetHttpResponse(CategoriesUrl);
+                CQ dom = WebHelper.GetHttpResponse(Info.MainPage);
 
                 foreach (var item in dom["dl.sub-cate-items dt a"])
                 {
@@ -80,19 +62,9 @@ namespace FindInCn.Shared.Models.Remote.Shops
             }
         }
 
-        string SearchUrl;
-
-        string CategoriesUrl;
-
-        string NotInitializedExceptionMessage = "Call Init() before use this method";
-
-        public void Init(int id, string name, string url, string searchUrl, string categoriesUrl)
+        public void Init(Shop shop)
         {
-            Id = id;
-            Name = name;
-            Url = url;
-            SearchUrl = searchUrl;
-            CategoriesUrl = categoriesUrl;
+            this.Info = shop;
         }
     }
 }

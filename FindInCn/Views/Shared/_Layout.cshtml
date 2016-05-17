@@ -19,11 +19,20 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div id="navbar">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" style="margin-right:100px;">
                     <li><a href="#">Dashboard</a></li>
                     <li><a href="#">Settings</a></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Help</a></li>
+                    @*<li id="registerButton">
+                            <a data-container="body" data-toggle="popover" onclick="logout()" data-placement="bottom"
+                               data-content='<form><input id="login" type="text" style="margin:5px;display:block;"/><input id="password" type="text" style="margin:5px;display:block;"/><a class="btn btn-sm btn-success" onclick="login()" role="button" style="float:right;margin:5px">login</a></form>'>
+                            </a>
+                        </li>*@
+                    <li>
+                        <a id="lbtn" data-container="body" data-toggle="popover" onclick="logout()" data-placement="bottom">
+                        </a>
+                    </li>
                 </ul>
                 <form class="navbar-form navbar-right" action="@Url.Action("Search")">
                     <input name="q" type="text" class="form-control" placeholder="Search...">
@@ -32,38 +41,10 @@
         </div>
     </nav>
 
-    @if (ViewBag.ShowCategories != false)
-    {
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        @foreach (var i in new FindInCn.Shared.Repositories.DbRepositories.CategoryRepository().GetCategories())
-                        {
+    <div style="margin:10px;">
+        @RenderBody()
+    </div>
 
-                            <li @if (i.Id == 1) { WriteLiteral("class=\"active\""); }>
-                                <a href="#">@i.Name</a>
-                            </li>
-                        }
-                    </ul>
-                    @*<ul class="nav nav-sidebar">
-                            <li><a href="">Nav item again</a></li>
-                            <li><a href="">One more nav</a></li>
-                            <li><a href="">Another nav item</a></li>
-                        </ul>*@
-                </div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    @RenderBody()
-                </div>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div style="margin:10px;">
-            @RenderBody()
-        </div>
-    }
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -71,7 +52,19 @@
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
     <script src="~/scripts/jquery-1.10.2.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    @Scripts.Render("/Scripts/bootstrap.js")
+    <script src="~/scripts/AjaxLogin.js"></script>
+    <script>
+        $('document').ready($(function () {
+            $('#lbtn').attr('data-content',
+                            '<form>' +
+                            '<input id="email" name="email" class="form-control" placeholder="Email" type="text" style="margin:5px;display:block;"/>' +
+                            '<input disabled id="password" name="password" class="form-control" placeholder="Password" type="text" style="margin:5px;display:block;"/>' +
+                            '<a id="dologin" class="btn btn-sm btn-success" onclick="login()" role="button" style="float:right;margin:5px">Send password</a>' +
+                        '</form>');
+            init('@((Session["User"] as FindInCn.Shared.Models.DB.User)?.Name)');
+        }));
+    </script>
 
-    @RenderSection("scripts", required: false)
 </body>
 </html>
