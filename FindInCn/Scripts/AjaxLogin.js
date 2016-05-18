@@ -1,7 +1,6 @@
 ﻿
 
 function init(username) {
-
     $('[data-toggle="popover"]').popover({
         html: true,
         title: function () {
@@ -17,6 +16,7 @@ function init(username) {
         $('#lbtn').popover("hide");
         $('#lbtn').popover("disable");
         loggedin = true;
+        $('#registerButton').hide();
     }
     else {
         $('#lbtn').html('Login');
@@ -27,17 +27,8 @@ function init(username) {
 
 var loggedin = false;
 
-//function load_content() {
-//    $.ajax({
-//        method: "GET",
-//        url: "/Home/AjaxContent",
-//        error: function () { alert('error loading page'); }
-//    }).done(function (html) {
-//        $("#content").html(html);
-//    });
-//}
-
 function logout() {
+    $('#registerButton').attr('visible', 'true');
     if (loggedin) {
         $.ajax({
             method: "GET",
@@ -47,13 +38,18 @@ function logout() {
             $('#lbtn').html('login');
             $('#lbtn').popover("enable");
             loggedin = false;
-            load_content();
+            $('#registerButton').show();
         });
         location.reload();
     }
 }
 
 function login() {
+    if ($('#email').val() == '') {
+        alert('Email field is empty');
+        return;
+    }
+
     $.ajax({
         method: "GET",
         url: "/Account/AjaxLogin",
@@ -72,13 +68,37 @@ function login() {
             if (data.status == 'noemail') {
                 alert("Email is incorrect");
             }
-            else if (data.status=='ok')
-            {
+            else if (data.status == 'ok') {
                 $('#lbtn').html(data.username + ' - logout');
                 $('#lbtn').popover("hide");
                 $('#lbtn').popover("disable");
                 loggedin = true;
                 location.reload();
+            } else if (data.status == 'nopass') {
+                alert('Password is incorrect or expired.');
             }
+    });
+}
+
+function register() {
+    if ($('#regemail').val() == '') {
+        alert('Email field is empty');
+        return;
+    }
+
+    $.ajax({
+        method: "GET",
+        url: "/Account/AjaxRegister",
+        data: {
+            email: $('#regemail').val(),
+            name: $('#name').val()
+        },
+        error: function () { alert('error'); }
+    }).done(function (r) {
+        if (r == 'ok') {
+            alert('Confirmation email sent. Please, confirm it to complete registration.');
+        } else {
+            alert('An error has occured during sending email. Please, check it. If error continue happening, let us know.');
+        }
     });
 }

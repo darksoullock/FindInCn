@@ -11,6 +11,10 @@
 
     @Styles.Render("~/Content/css")
 
+    @{
+        var user = Session["User"] as FindInCn.Shared.Models.DB.User;
+    }
+
     <!-- Custom styles for this template -->
     <link href="~/Content/dashboard.css" rel="stylesheet">
 </head>
@@ -24,11 +28,11 @@
                     <li><a href="#">Settings</a></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Help</a></li>
-                    @*<li id="registerButton">
-                            <a data-container="body" data-toggle="popover" onclick="logout()" data-placement="bottom"
-                               data-content='<form><input id="login" type="text" style="margin:5px;display:block;"/><input id="password" type="text" style="margin:5px;display:block;"/><a class="btn btn-sm btn-success" onclick="login()" role="button" style="float:right;margin:5px">login</a></form>'>
-                            </a>
-                        </li>*@
+                    <li>
+                        <a  id="registerButton" data-container="body" data-toggle="popover" data-placement="bottom">
+                            Register
+                        </a>
+                    </li>
                     <li>
                         <a id="lbtn" data-container="body" data-toggle="popover" onclick="logout()" data-placement="bottom">
                         </a>
@@ -62,7 +66,13 @@
                             '<input disabled id="password" name="password" class="form-control" placeholder="Password" type="text" style="margin:5px;display:block;"/>' +
                             '<a id="dologin" class="btn btn-sm btn-success" onclick="login()" role="button" style="float:right;margin:5px">Send password</a>' +
                         '</form>');
-            init('@((Session["User"] as FindInCn.Shared.Models.DB.User)?.Name)');
+            $('#registerButton').attr('data-content',
+                            '<form>' +
+                            '<input id="name" name="name" class="form-control" placeholder="Name" type="email" style="margin:5px;display:block;"/>' +
+                            '<input id="regemail" name="email" class="form-control" placeholder="Email" type="text" style="margin:5px;display:block;"/>' +
+                            '<a id="doregister" class="btn btn-sm btn-success" onclick="register()" role="button" style="float:right;margin:5px">Register</a>' +
+                        '</form>');
+            init('@(user?.Name)');
         }));
     </script>
 
