@@ -17,16 +17,18 @@
 
     <!-- Custom styles for this template -->
     <link href="~/Content/dashboard.css" rel="stylesheet">
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">FindInCn</a>
+            </div>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right" style="margin-right:100px;">
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="/Home/Favorites">Favorites</a></li>
                     <li><a href="#">Help</a></li>
                     <li>
                         <a  id="registerButton" data-container="body" data-toggle="popover" data-placement="bottom">
@@ -54,7 +56,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
-    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     @Scripts.Render("/Scripts/bootstrap.js")
     <script src="~/scripts/AjaxLogin.js"></script>

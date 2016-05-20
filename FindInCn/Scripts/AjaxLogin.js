@@ -72,6 +72,15 @@ function login() {
                 $('#lbtn').html(data.username + ' - logout');
                 $('#lbtn').popover("hide");
                 $('#lbtn').popover("disable");
+                if (delayed)
+                {
+                    $.ajax({
+                        method: "GET",
+                        url: delayed,
+                        data: {},
+                    });
+                }
+
                 loggedin = true;
                 location.reload();
             } else if (data.status == 'nopass') {

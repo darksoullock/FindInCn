@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FindInCn.Shared.Models.Remote.Shops
 {
-    public class GenericSearchItem<T> : IRemoteSearchItem where T : IRemoteShop
+    public class GenericSearchItem : IRemoteSearchItem
     {
         public string Name { get; set; }
 
@@ -22,6 +22,6 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
         public string Url { get; set; }
 
-        public T Shop { get; set; }
+        public int ShopId { get; set; }
     }
 }

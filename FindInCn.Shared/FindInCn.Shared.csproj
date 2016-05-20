@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201605160927214_token.Designer.cs">
       <DependentUpon>201605160927214_token.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605201243051_idproperties.cs" />
+    <Compile Include="Migrations\201605201243051_idproperties.Designer.cs">
+      <DependentUpon>201605201243051_idproperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB\Category.cs" />
     <Compile Include="Models\DB\CategoryToShopSpecificIdMapping.cs" />
@@ -139,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605160927214_token.resx">
       <DependentUpon>201605160927214_token.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605201243051_idproperties.resx">
+      <DependentUpon>201605201243051_idproperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

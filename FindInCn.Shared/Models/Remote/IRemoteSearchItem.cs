@@ -26,6 +26,8 @@ namespace FindInCn.Shared.Models.Remote
 
         string Currency { get; }
 
+        int ShopId { get; set; }
+
         //feedback
     }
 }

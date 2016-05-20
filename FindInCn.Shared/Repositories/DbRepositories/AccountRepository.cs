@@ -24,5 +24,16 @@ namespace FindInCn.Shared.Repositories.DbRepositories
             _db.Users.Add(user);
             _db.SaveChanges();
         }
+
+        public void AddToFavorite(FavoriteItem item)
+        {
+            _db.Favorites.Add(item);
+            _db.SaveChanges();
+        }
+
+        public IQueryable<FavoriteItem> GetFavoritesByUserIdAsQueryable(int userId)
+        {
+            return _db.Favorites.Where(i => i.UserId == userId);
+        }
     }
 }

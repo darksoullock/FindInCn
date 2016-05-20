@@ -24,18 +24,28 @@ namespace FindInCn.Shared.Models.Remote.Shops
             var result = new List<IRemoteSearchItem>();
 
             CQ dom = WebHelper.GetHttpResponse(string.Format(Info.SearchUrl, options.Name));
-            dom = dom["div.catePro_ListBox"].FirstOrDefault().InnerHTML;
+            dom = dom["div.catePro_ListBox"].FirstOrDefault()?.InnerHTML;
+            if (dom==null)
+            {
+                return result;
+            }
 
             foreach (var item in dom["li"])
             {
                 CQ listItem = item.InnerHTML;
                 var link = listItem["p.all_proNam a"].FirstOrDefault();
-                result.Add(new GenericSearchItem<GearBest>()
+                if (link==null)
+                {
+                    continue;
+                }
+
+                result.Add(new GenericSearchItem()
                 {
                     Name = link.GetAttribute("title"),
                     Url = link.GetAttribute("href"),
                     ImageUrl = listItem["img"].FirstOrDefault().GetAttribute("data-original"),
-                    PriceString = listItem["span.my_shop_price"].FirstOrDefault().InnerText + "USD"
+                    PriceString = listItem["span.my_shop_price"].FirstOrDefault().InnerText + "USD",
+                    ShopId = Info.ShopId
                 });
             }
 

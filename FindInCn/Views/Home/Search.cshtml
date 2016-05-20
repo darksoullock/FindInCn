@@ -1,17 +1,26 @@
-﻿@model IEnumerable<FindInCn.Shared.Models.Remote.IRemoteSearchItem>
-@{
+﻿@{
     ViewBag.Title = "SearchResult";
 }
 
-<h2>SearchResult</h2>
+<h2 style="text-align:center;">SearchResult</h2>
 
-@foreach (var i in Model)
-{
-    <div class="col-xs-6 col-sm-3 placeholder">
-        <a href="@i.Url">
-            <img src="@i.ImageUrl" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>@i.Name</h4>
-            @*<span class="text-muted">@i.ShopId</span>*@
-        </a>
-    </div>
-}
+<script>
+    $('document').ready($(function () {
+        $.ajax({
+            method: "GET",
+            url: "/Home/AjaxSearch",
+            data: {
+                q: '@ViewBag.q',
+            },
+            error: function () { alert('error'); }
+        }).done(function (html) {
+            $('#ajaxcontent').html(html);
+            $('#loading-image').hide();
+        });
+    }));
+</script>
+
+<div id="loading-image"><img style="display: block;margin: 0 auto;width:100px;" src="http://www.ppimusic.ie/images/loading_anim.gif" /></div>
+
+<div id="ajaxcontent">
+</div>

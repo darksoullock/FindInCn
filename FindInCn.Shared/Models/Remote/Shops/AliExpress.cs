@@ -28,12 +28,13 @@ namespace FindInCn.Shared.Models.Remote.Shops
             foreach (var item in dom["li.list-item"])
             {
                 CQ listItem = item.InnerHTML;
-                result.Add(new GenericSearchItem<AliExpress>()
+                result.Add(new GenericSearchItem()
                 {
                     Name = listItem["img.picCore"].FirstOrDefault()?.GetAttribute("alt"),
                     ImageUrl = listItem["img.picCore"].FirstOrDefault()?.GetAttribute("src"),
                     Url = listItem["a.picRind"].FirstOrDefault()?.GetAttribute("href"),
-                    PriceString = WebUtility.HtmlDecode(listItem["span.value"].FirstOrDefault(i => i.HasAttribute("itemprop") && i.GetAttribute("itemprop") == "price")?.InnerText)
+                    PriceString = WebUtility.HtmlDecode(listItem["span.value"].FirstOrDefault(i => i.HasAttribute("itemprop") && i.GetAttribute("itemprop") == "price")?.InnerText),
+                    ShopId = Info.ShopId
                 });
             }
 
