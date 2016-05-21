@@ -12,9 +12,9 @@ namespace FindInCn.Controllers
 {
     public class AccountController : Controller
     {
-        AccountRepository _db = new AccountRepository();
         public string AjaxLogin(string email, string password)
         {
+            AccountRepository _db = new AccountRepository();
             var user = _db.GetUserByEmail(email);
             var jss = new JavaScriptSerializer();
             if (user == null)
@@ -46,6 +46,7 @@ namespace FindInCn.Controllers
 
         public ActionResult ConfirmRegistration(int id, string key)
         {
+            AccountRepository _db = new AccountRepository();
             var user = _db.GetUserById(id);
             if (user.Password == key && user.PassExpiration > DateTime.Now)
             {
@@ -64,6 +65,7 @@ namespace FindInCn.Controllers
 
         public string AjaxRegister(string name, string email)
         {
+            AccountRepository _db = new AccountRepository();
             if (!email.Contains('@'))
             {
                 return "err";
