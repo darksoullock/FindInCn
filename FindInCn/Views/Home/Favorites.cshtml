@@ -1,33 +1,25 @@
-﻿@model IEnumerable<FindInCn.Shared.Models.DB.FavoriteItem>
+﻿@model IEnumerable<FindInCn.Shared.Models.Remote.RemoteItemDetails>
 
 @{
     ViewBag.Title = "Favorites";
 }
 
-<h2>Favorites</h2>
+<h2 style="text-align:center;">Favorites</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ItemUrl)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-striped">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a class="thumbnail" href="/Home/ItemDetails?shopId=@item.ShopId&url=@item.ItemUrl">
+                    <img class="media-object" style="width:150px;" src="@item.ImageUrl" alt="...">
+                </a>
+            </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ItemUrl)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+            <td>
+                @item.Title
+            </td>
+        </tr>
+    }
 </table>
+

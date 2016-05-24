@@ -22,5 +22,10 @@ namespace FindInCn.Shared.Helpers
             // TODO Performance -- write custom shuffle
             return result.OrderBy(i=>rnd.Next());
         }
+
+        public static RemoteItemDetails GetRemoteItemDetails(int shopId, string url)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

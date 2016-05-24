@@ -9,7 +9,6 @@
             <ul class="nav nav-sidebar">
                 @foreach (var i in new FindInCn.Shared.Repositories.DbRepositories.CategoryRepository().GetCategories())
                 {
-
                     <li @if (i.Id == 1) { WriteLiteral("class=\"active\""); }>
                         <a href="#">@i.Name</a>
                     </li>

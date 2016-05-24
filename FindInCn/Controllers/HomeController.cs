@@ -1,6 +1,7 @@
 ﻿using FindInCn.Shared.Helpers;
 using FindInCn.Shared.Models;
 using FindInCn.Shared.Models.DB;
+using FindInCn.Shared.Models.Remote;
 using FindInCn.Shared.Repositories.DbRepositories;
 using FindInCn.Shared.Repositories.RemoteRepositories;
 using System;
@@ -46,7 +47,7 @@ namespace FindInCn.Controllers
         public string AddToFavorites(string url, int shopId)
         {
             var user = Session["user"] as User;
-            if (user==null)
+            if (user == null)
             {
                 return "noauth";
             }
@@ -64,7 +65,17 @@ namespace FindInCn.Controllers
                 return Redirect("/");
             }
 
-            return View(accountRepository.GetFavoritesByUserIdAsQueryable(user.Id));
+            var repo = new RemoteRepository();
+            var dbFavorites = accountRepository.GetFavoritesByUserIdAsQueryable(user.Id).ToArray();
+
+            //TODO performance -- every time creating shops 
+            RemoteItemDetails[] fmodel = dbFavorites.Select(i => repo.GetRemoteShop(i.ShopId).GetItem(i.ItemUrl)).ToArray();
+            return View(fmodel);
+        }
+
+        public ActionResult ItemDetails()
+        {
+            return View();
         }
     }
 }

@@ -28,6 +28,7 @@ namespace FindInCn.Controllers
                 MailHelper.SendPasswd(email, pass);
                 user.Password = pass;
                 var passUntil = DateTime.Now.AddMinutes(10);
+                user.PassExpiration = passUntil;
                 _db.Save();
                 return jss.Serialize(new { status = "sent" });
             }

@@ -67,5 +67,28 @@ namespace FindInCn.Shared.Models.Remote.Shops
         {
             this.Info = shop;
         }
+
+        public RemoteItemDetails GetItem(string url)
+        {
+            CQ dom = WebHelper.GetHttpResponse("http:"+url.Split('?').First());
+            var item = new RemoteItemDetails();
+            item.ShopId = this.Info.ShopId;
+            item.ItemUrl = url;
+            item.ImageUrl = dom["meta"]?.FirstOrDefault(i => i.GetAttribute("property") == "og:image")?.GetAttribute("content");
+            item.Title = WebUtility.HtmlDecode(dom["title"].Html());
+
+            dom = dom[".product-property-list"];
+            item.Properties = new List<ProductPropertyItem>(16);
+
+            foreach (var i in dom["li.property-item"])
+            {
+                CQ listItem = i.InnerHTML;
+                var p = new ProductPropertyItem();
+                p.Name = WebUtility.HtmlDecode(listItem[".propery-title"].Html());
+                p.Value = WebUtility.HtmlDecode(listItem[".propery-des"].Html());
+            }
+            
+            return item;
+        }
     }
 }

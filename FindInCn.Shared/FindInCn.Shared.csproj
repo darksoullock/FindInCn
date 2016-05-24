@@ -95,6 +95,10 @@
     <Compile Include="Migrations\201605201243051_idproperties.Designer.cs">
       <DependentUpon>201605201243051_idproperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605240719529_categoryUrl.cs" />
+    <Compile Include="Migrations\201605240719529_categoryUrl.Designer.cs">
+      <DependentUpon>201605240719529_categoryUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB\Category.cs" />
     <Compile Include="Models\DB\CategoryToShopSpecificIdMapping.cs" />
@@ -104,6 +108,8 @@
     <Compile Include="Models\DB\User.cs" />
     <Compile Include="Models\Remote\IRemoteSearchItem.cs" />
     <Compile Include="Models\Remote\IRemoteShop.cs" />
+    <Compile Include="Models\Remote\ProductPropertyItem.cs" />
+    <Compile Include="Models\Remote\RemoteItemDetails.cs" />
     <Compile Include="Models\Remote\Shops\AliExpress.cs" />
     <Compile Include="Models\Remote\Shops\GearBest.cs" />
     <Compile Include="Models\DB\Shop.cs" />
@@ -146,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605201243051_idproperties.resx">
       <DependentUpon>201605201243051_idproperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605240719529_categoryUrl.resx">
+      <DependentUpon>201605240719529_categoryUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

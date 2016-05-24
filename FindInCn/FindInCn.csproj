@@ -208,6 +208,7 @@
     <Content Include="Views\Account\ConfirmRegistration.cshtml" />
     <Content Include="Views\Home\Favorites.cshtml" />
     <Content Include="Views\Home\AjaxSearch.cshtml" />
+    <Content Include="Views\Home\ItemDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

@@ -16,5 +16,7 @@ namespace FindInCn.Shared.Models.Remote
         IEnumerable<IRemoteSearchItem> Search(SearchOptions options);
 
         void Init(Shop info);
+
+        RemoteItemDetails GetItem(string url);
     }
 }

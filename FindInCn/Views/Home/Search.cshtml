@@ -2,7 +2,7 @@
     ViewBag.Title = "SearchResult";
 }
 
-<h2 style="text-align:center;">SearchResult</h2>
+<h2 style="text-align:center;">SearchResult for "@ViewBag.q"</h2>
 
 <script>
     $('document').ready($(function () {
@@ -20,7 +20,7 @@
     }));
 </script>
 
-<div id="loading-image"><img style="display: block;margin: 0 auto;width:100px;" src="http://www.ppimusic.ie/images/loading_anim.gif" /></div>
+<div id="loading-image"><img style="display: block;margin: 0 auto;" src="~/Images/ajax-loader.gif" /></div>
 
 <div id="ajaxcontent">
 </div>

@@ -74,5 +74,10 @@ namespace FindInCn.Shared.Models.Remote.Shops
         {
             this.Info = info;
         }
+
+        public RemoteItemDetails GetItem(string url)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
