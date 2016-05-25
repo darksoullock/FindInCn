@@ -25,7 +25,7 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
             CQ dom = WebHelper.GetHttpResponse(string.Format(Info.SearchUrl, options.Name));
             dom = dom["div.catePro_ListBox"].FirstOrDefault()?.InnerHTML;
-            if (dom==null)
+            if (dom == null)
             {
                 return result;
             }
@@ -34,7 +34,7 @@ namespace FindInCn.Shared.Models.Remote.Shops
             {
                 CQ listItem = item.InnerHTML;
                 var link = listItem["p.all_proNam a"].FirstOrDefault();
-                if (link==null)
+                if (link == null)
                 {
                     continue;
                 }
@@ -77,7 +77,33 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
         public RemoteItemDetails GetItem(string url)
         {
-            throw new NotImplementedException();
+            CQ dom = WebHelper.GetHttpResponse(url);
+            var item = new RemoteItemDetails();
+            item.ShopId = this.Info.ShopId;
+            item.ItemUrl = url;
+            item.ImageUrl = dom["meta"]?.FirstOrDefault(i => i.GetAttribute("property") == "og:image")?.GetAttribute("content");
+            item.Title = WebUtility.HtmlDecode(dom["title"].Html().Trim());
+            var properties = new List<ProductPropertyItem>(16);
+
+            foreach (var i in dom[".product_pz_style2 table tr td"])
+            {
+                string listItem = i.InnerHTML;
+
+                listItem.Split(new string[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(j => j.Trim().Split(':')).ToList()
+                    .ForEach(j => properties.Add(new ProductPropertyItem() { Name = j.First(), Value = j.Last() }));
+            }
+
+            foreach (var i in dom["li.property-item"])
+            {
+                CQ listItem = i.InnerHTML;
+                var p = new ProductPropertyItem();
+                p.Name = WebUtility.HtmlDecode(listItem[".propery-title"].Html());
+                p.Value = WebUtility.HtmlDecode(listItem[".propery-des"].Html());
+            }
+
+            item.Properties = properties;
+            return item;
         }
     }
 }
