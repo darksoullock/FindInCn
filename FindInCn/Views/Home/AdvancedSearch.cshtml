@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "AdvancedSearch";
+}
+
+<h3 style="text-align:center">Advanced Search</h3>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="max-width:600px;margin:auto;">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Collapsible Group Item #1
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                <div>Sort by price</div>
+                <div style="float:right;">
+                    <span onclick="$(function(){alert()});" class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span>
+                </div>
+                <br />
+
+                <div>Sort by shop name</div>
+                <div style="float:right;">
+                    <span onclick="$(function(){alert()});" class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span>
+                </div>
+                <br />
+
+            </div>
+        </div>
+    </div>
+</div>

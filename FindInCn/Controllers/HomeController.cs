@@ -77,5 +77,10 @@ namespace FindInCn.Controllers
         {
             return View();
         }
+
+        public ActionResult AdvancedSearch()
+        {
+            return View();
+        }
     }
 }

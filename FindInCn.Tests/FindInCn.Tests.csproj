@@ -82,16 +82,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\WebHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="TestData\text.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestData\dwoudnt1.dah">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\gjsdkclx.ise">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FindInCn.Shared\FindInCn.Shared.csproj">
+      <Project>{c37751b7-8b56-47a4-b18c-4a49da379a80}</Project>
+      <Name>FindInCn.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FindInCn\FindInCn.csproj">
       <Project>{6A13EAB4-4C9D-4246-A9B7-95692152460E}</Project>
       <Name>FindInCn</Name>

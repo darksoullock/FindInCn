@@ -209,6 +209,7 @@
     <Content Include="Views\Home\Favorites.cshtml" />
     <Content Include="Views\Home\AjaxSearch.cshtml" />
     <Content Include="Views\Home\ItemDetails.cshtml" />
+    <Content Include="Views\Home\AdvancedSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
