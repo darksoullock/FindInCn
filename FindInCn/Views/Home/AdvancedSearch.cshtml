@@ -5,6 +5,8 @@
 
 <h3 style="text-align:center">Advanced Search</h3>
 
+<input type="text" class="form-control" style="margin:5%;" placeholder="Search.."/>
+
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="max-width:600px;margin:auto;">
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
@@ -18,8 +20,8 @@
             <div class="panel-body">
                 <div>Sort by price</div>
                 <div style="float:right;">
-                    <span onclick="$(function(){alert()});" class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span>
+                    <span onclick="$(function(){alert()});" style="color:red;" class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-sort-by-order-alt" aria-hidden="true"></span>
                 </div>
                 <br />
 
@@ -34,3 +36,5 @@
         </div>
     </div>
 </div>
+
+<input style="margin-top:5px;" type="button" class="btn btn-success" value="Go!" />
