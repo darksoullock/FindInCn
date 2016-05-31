@@ -9,5 +9,9 @@ namespace FindInCn.Shared.Models
     public class SearchOptions
     {
         public string Name { get; set; }
+
+        public decimal PriceFrom { get; set; }
+
+        public decimal PriceTo { get; set; }
     }
 }

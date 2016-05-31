@@ -1,0 +1,25 @@
+﻿@model IEnumerable<FindInCn.Shared.Models.Remote.RemoteItemDetails>
+
+@{
+    ViewBag.Title = "Favorites";
+}
+
+<h2 style="text-align:center;">Favorites</h2>
+
+<table class="table table-striped">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a class="thumbnail" href="/Home/ItemDetails?shopId=@item.ShopId&url=@item.ItemUrl">
+                    <img class="media-object" style="width:150px;" src="@item.ImageUrl" alt="...">
+                </a>
+            </td>
+
+            <td>
+                @item.Title
+            </td>
+        </tr>
+    }
+</table>
+

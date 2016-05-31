@@ -1,0 +1,46 @@
+﻿
+<script>
+    var delayed = '';
+    //var loggedin = @Session["user"] == '';
+    function addtofavorites(url, shopId, iconId) {
+        $.ajax({
+            method: "GET",
+            url: "/Home/AddToFavorites",
+            data: {
+                url: url,
+                shopId: shopId
+            },
+            error: function () { alert('error'); }
+        }).done(function (html) {
+            if (html == 'noauth') {
+                $('#lbtn').popover("show");
+                alert('You need to login first');
+                delayed = '/Home/AddToFavorites?url=' + url + '&shopId=' + shopId;
+            }
+            else {
+                $(iconId).attr('class', 'glyphicon glyphicon-star');
+            }
+        });
+    }
+</script>
+
+<style>
+    .placeholder {
+        min-height: 400px;
+        max-height: 400px;
+    }
+</style>
+
+@{int index = 0;}
+@foreach (var i in Model)
+{
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <a href="@i.Url">
+            <img src="@i.ImageUrl" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>@i.Name</h4>
+            <a onclick="addtofavorites('@i.Url', @i.ShopId, '@("#star" + (++index).ToString())')"
+               style="float:right;">Add to favorites<span id="@("star" + index.ToString())" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></a>
+            @*<span class="text-muted">@i.ShopId</span>*@
+        </a>
+    </div>
+}

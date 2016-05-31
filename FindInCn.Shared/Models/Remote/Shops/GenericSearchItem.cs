@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace FindInCn.Shared.Models.Remote.Shops
 {
-    public class GenericSearchItem<T> : IRemoteSearchItem where T : IRemoteShop
+    public class GenericSearchItem : IRemoteSearchItem
     {
         public string Name { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal MinPrice { get; set; }
+
+        public decimal MaxPrice { get; set; }
 
         public string PriceString { get; set; }
         
@@ -20,6 +22,6 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
         public string Url { get; set; }
 
-        public T Shop { get; set; }
+        public int ShopId { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FindInCn.Shared.Helpers
 {
-    class WebHelper
+    public class WebHelper
     {
         public static string GetHttpResponse(string url)
         {

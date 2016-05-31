@@ -10,5 +10,10 @@ namespace FindInCn.Shared.Repositories.DbRepositories
     public class DbRepository
     {
         protected CnContext _db = new CnContext();
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
     }
 }

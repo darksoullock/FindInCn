@@ -14,9 +14,9 @@ namespace FindInCn.Shared.Models.DB
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public Shop Shop { get; set; }
+        public virtual Shop Shop { get; set; }
 
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public string RemoteCategoryId { get; set; }
     }

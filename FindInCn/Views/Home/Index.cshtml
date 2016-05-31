@@ -2,21 +2,36 @@
     ViewBag.Title = "Home Page";
 }
 
-<div>
-    <br />
-    <h3 class="page-header">Select a category or try to search something</h3>
-    <h2> Here is a list of supported shops: </h2>
 
-    <div class="row placeholders">
-        @foreach (var i in new FindInCn.Shared.Repositories.RemoteRepositories.RemoteRepository().GetRemoteShops())
-        {
-            <div class="col-xs-6 col-sm-3" style="min-height:200px;min-width:200px;">
-                <a href="@Url.Action("StoreInfo")/@i.Id" style="vertical-align:central;">
-                    <img src="@i.Logo" width="200" height="200" class="img-thumbnail" style="background-color:darkgray;">
-                    <h4 style="vertical-align:bottom">@i.Name</h4>
-                </a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                @foreach (var i in new FindInCn.Shared.Repositories.DbRepositories.CategoryRepository().GetCategories())
+                {
+                    <li @if (i.Id == 1) { WriteLiteral("class=\"active\""); }>
+                        <a href="#">@i.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <br />
+            <h3 class="page-header">Select a category or try to search something</h3>
+            <h2> Here is a list of supported shops: </h2>
+
+            <div class="row placeholders">
+                @foreach (var i in new FindInCn.Shared.Repositories.RemoteRepositories.RemoteRepository().GetRemoteShops())
+                {
+                    <div class="col-xs-6 col-sm-3" style="min-height:200px;min-width:200px;">
+                        <a href="@Url.Action("StoreInfo")/@i.Info.ShopId" style="vertical-align:central;">
+                            <img src="/Images/@i.Info.Logo" width="200" height="200" class="img-thumbnail">
+                            <h4 style="vertical-align:bottom">@i.Info.Name</h4>
+                        </a>
+                    </div>
+                }
             </div>
-        }
+            <br />
+        </div>
     </div>
-    <br />
 </div>

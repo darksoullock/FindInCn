@@ -1,6 +1,8 @@
 ﻿using FindInCn.Shared.Helpers;
 using FindInCn.Shared.Models;
 using FindInCn.Shared.Models.DB;
+using FindInCn.Shared.Models.Remote;
+using FindInCn.Shared.Repositories.DbRepositories;
 using FindInCn.Shared.Repositories.RemoteRepositories;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,9 @@ namespace FindInCn.Controllers
 {
     public class HomeController : Controller
     {
-        RemoteRepository repository = new RemoteRepository();
+        RemoteRepository remoteRepository = new RemoteRepository();
+        AccountRepository accountRepository = new AccountRepository();
+
 
         public ActionResult Index()
         {
@@ -22,17 +26,61 @@ namespace FindInCn.Controllers
 
         public ActionResult Search(string q)
         {
-            var shops = repository.GetRemoteShops();
+            ViewBag.q = System.Net.WebUtility.HtmlEncode(q);
+            return View();
+        }
+
+        public ActionResult AjaxSearch(string q)
+        {
+            var shops = remoteRepository.GetRemoteShops();
             var result = RemoteHelper.Search(shops, new SearchOptions() { Name = q });
 
-            return View(result.ToArray());
+            return PartialView(result.ToArray());
         }
 
         public ActionResult StoreInfo(int id)
         {
-            var shop = repository.GetRemoteShop(id);
-            ViewBag.ShowCategories = false;
+            var shop = remoteRepository.GetRemoteShop(id);
             return View(shop);
+        }
+
+        public string AddToFavorites(string url, int shopId)
+        {
+            var user = Session["user"] as User;
+            if (user == null)
+            {
+                return "noauth";
+            }
+
+            var item = new FavoriteItem() { ItemUrl = url, UserId = user.Id, ShopId = shopId };
+            accountRepository.AddToFavorite(item);
+            return "ok";
+        }
+
+        public ActionResult Favorites()
+        {
+            var user = Session["user"] as User;
+            if (user == null)
+            {
+                return Redirect("/");
+            }
+
+            var repo = new RemoteRepository();
+            var dbFavorites = accountRepository.GetFavoritesByUserIdAsQueryable(user.Id).ToArray();
+
+            //TODO performance -- every time creating shops 
+            RemoteItemDetails[] fmodel = dbFavorites.Select(i => repo.GetRemoteShop(i.ShopId).GetItem(i.ItemUrl)).ToArray();
+            return View(fmodel);
+        }
+
+        public ActionResult ItemDetails()
+        {
+            return View();
+        }
+
+        public ActionResult AdvancedSearch()
+        {
+            return View();
         }
     }
 }

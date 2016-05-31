@@ -18,8 +18,7 @@ namespace FindInCn.Shared.Repositories.RemoteRepositories
             List<IRemoteShop> result = new List<IRemoteShop>();
             foreach (var i in shops)
             {
-                IRemoteShop shop = Activator.CreateInstance(Type.GetType(i.ClassName)) as IRemoteShop;
-                shop.Init(i.ShopId, i.Name, i.MainPage, i.SearchUrl, i.MainPage);
+                IRemoteShop shop = Activator.CreateInstance(Type.GetType(i.ClassName), i) as IRemoteShop;
                 result.Add(shop);
             }
 
@@ -30,8 +29,15 @@ namespace FindInCn.Shared.Repositories.RemoteRepositories
         {
             var shopRepository = new ShopRepository();
             var item = shopRepository.GetShopById(id);
-            IRemoteShop shop = Activator.CreateInstance(Type.GetType(item.ClassName)) as IRemoteShop;
-            shop.Init(item.ShopId, item.Name, item.MainPage, item.SearchUrl, item.MainPage);
+            IRemoteShop shop = Activator.CreateInstance(Type.GetType(item.ClassName), item) as IRemoteShop;
+            return shop;
+        }
+
+        public IRemoteShop GetRemoteShop(string name)
+        {
+            var shopRepository = new ShopRepository();
+            var item = shopRepository.GetShopByName(name);
+            IRemoteShop shop = Activator.CreateInstance(Type.GetType(item.ClassName), item) as IRemoteShop;
             return shop;
         }
     }

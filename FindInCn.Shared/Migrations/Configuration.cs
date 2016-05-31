@@ -1,5 +1,6 @@
 namespace FindInCn.Shared.Migrations
 {
+    using Models.DB;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -15,8 +16,7 @@ namespace FindInCn.Shared.Migrations
 
         protected override void Seed(FindInCn.Shared.Models.DB.CnContext context)
         {
-            context.Categories.AddOrUpdate(new Models.DB.Category[]
-            {
+            context.Categories.AddOrUpdate(i => i.Name,
                 new Models.DB.Category() {Name="All Categories" },
                 new Models.DB.Category() {Name="Mobile Phones" },
                 new Models.DB.Category() {Name="Tablet PC & Accessories" },
@@ -31,7 +31,26 @@ namespace FindInCn.Shared.Migrations
                 new Models.DB.Category() {Name="Apple Accessories" },
                 new Models.DB.Category() {Name="Watches & Jewelry" },
                 new Models.DB.Category() {Name="Apparel" }
-            });
+            );
+
+            context.Shops.AddOrUpdate(i=>i.Name,
+                new Shop()
+                {
+                    Name = "AliExpress",
+                    ClassName= "FindInCn.Shared.Models.Remote.Shops.AliExpress",
+                    SearchUrl = "http://aliexpress.com/wholesale?SearchText={0}",
+                    MainPage = "http://ru.aliexpress.com/ru_home.htm",
+                    Logo = "ae.png"
+                },
+                new Shop()
+                {
+                    Name = "GearBest",
+                    ClassName = "FindInCn.Shared.Models.Remote.Shops.GearBest",
+                    SearchUrl = "http://www.gearbest.com/{0}-_gear/",
+                    MainPage = "http://www.gearbest.com/",
+                    Logo = "gb.png"
+                }
+            );
 
             //  This method will be called after migrating to the latest version.
 

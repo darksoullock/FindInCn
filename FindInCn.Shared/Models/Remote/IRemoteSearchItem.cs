@@ -18,11 +18,15 @@ namespace FindInCn.Shared.Models.Remote
 
         string ImageUrl { get; }
 
-        decimal Price { get; }
+        decimal MinPrice { get; }
+
+        decimal MaxPrice { get; }
 
         string PriceString { get; }
 
         string Currency { get; }
+
+        int ShopId { get; set; }
 
         //feedback
     }

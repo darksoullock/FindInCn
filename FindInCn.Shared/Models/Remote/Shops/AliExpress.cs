@@ -6,47 +6,35 @@ using System.Text;
 using System.Threading.Tasks;
 using CsQuery;
 using System.Net;
+using FindInCn.Shared.Models.DB;
 
 namespace FindInCn.Shared.Models.Remote.Shops
 {
     public class AliExpress : IRemoteShop
     {
-        public AliExpress()
+        public AliExpress(Shop info)
         {
-
+            Init(info);
         }
 
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Url { get; set; }
-
-        public string Logo
-        {
-            get { return "https://lh3.googleusercontent.com/nHVoq8tujVi-kNdEWWUivSxPCc9XEtT7Nk10oGfkyg6KdU0dPkOulKbVOLTj_4bDEu8=w300"; }
-        }
+        public Shop Info { get; set; }
 
         public IEnumerable<IRemoteSearchItem> Search(SearchOptions options)
         {
-            if (SearchUrl == null)
-            {
-                throw new ArgumentNullException(NotInitializedExceptionMessage);
-            }
-
-            var data = WebHelper.GetHttpResponse(string.Format(SearchUrl, options.Name));
+            var data = WebHelper.GetHttpResponse(string.Format(Info.SearchUrl, options.Name));
             CQ dom = data.Replace("image-src", "src");
             List<IRemoteSearchItem> result = new List<IRemoteSearchItem>();
 
             foreach (var item in dom["li.list-item"])
             {
                 CQ listItem = item.InnerHTML;
-                result.Add(new GenericSearchItem<AliExpress>()
+                result.Add(new GenericSearchItem()
                 {
                     Name = listItem["img.picCore"].FirstOrDefault()?.GetAttribute("alt"),
                     ImageUrl = listItem["img.picCore"].FirstOrDefault()?.GetAttribute("src"),
                     Url = listItem["a.picRind"].FirstOrDefault()?.GetAttribute("href"),
-                    PriceString = WebUtility.HtmlDecode(listItem["span.value"].FirstOrDefault(i => i.HasAttribute("itemprop") && i.GetAttribute("itemprop") == "price")?.InnerText)
+                    PriceString = WebUtility.HtmlDecode(listItem["span.value"].FirstOrDefault(i => i.HasAttribute("itemprop") && i.GetAttribute("itemprop") == "price")?.InnerText),
+                    ShopId = Info.ShopId
                 });
             }
 
@@ -61,13 +49,8 @@ namespace FindInCn.Shared.Models.Remote.Shops
         {
             get
             {
-                if (CategoriesUrl == null)
-                {
-                    throw new ArgumentNullException(NotInitializedExceptionMessage);
-                }
-
                 Dictionary<string, string> result = new Dictionary<string, string>();
-                CQ dom = WebHelper.GetHttpResponse(CategoriesUrl);
+                CQ dom = WebHelper.GetHttpResponse(Info.MainPage);
 
                 foreach (var item in dom["dl.sub-cate-items dt a"])
                 {
@@ -80,19 +63,37 @@ namespace FindInCn.Shared.Models.Remote.Shops
             }
         }
 
-        string SearchUrl;
-
-        string CategoriesUrl;
-
-        string NotInitializedExceptionMessage = "Call Init() before use this method";
-
-        public void Init(int id, string name, string url, string searchUrl, string categoriesUrl)
+        public void Init(Shop shop)
         {
-            Id = id;
-            Name = name;
-            Url = url;
-            SearchUrl = searchUrl;
-            CategoriesUrl = categoriesUrl;
+            this.Info = shop;
+        }
+
+        public RemoteItemDetails GetItem(string url)
+        {
+            if (url.StartsWith("//"))
+            {
+                url = "http:" + url;
+            }
+
+            CQ dom = WebHelper.GetHttpResponse(url.Split('?').First());
+            var item = new RemoteItemDetails();
+            item.ShopId = this.Info.ShopId;
+            item.ItemUrl = url;
+            item.ImageUrl = dom["meta"]?.FirstOrDefault(i => i.GetAttribute("property") == "og:image")?.GetAttribute("content");
+            item.Title = WebUtility.HtmlDecode(dom["title"].Html());
+
+            dom = dom[".product-property-list"];
+            item.Properties = new List<ProductPropertyItem>(16);
+
+            foreach (var i in dom["li.property-item"])
+            {
+                CQ listItem = i.InnerHTML;
+                var p = new ProductPropertyItem();
+                p.Name = WebUtility.HtmlDecode(listItem[".propery-title"].Html());
+                p.Value = WebUtility.HtmlDecode(listItem[".propery-des"].Html());
+            }
+            
+            return item;
         }
     }
 }

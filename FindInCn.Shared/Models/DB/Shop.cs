@@ -21,5 +21,7 @@ namespace FindInCn.Shared.Models.DB
         public string SearchUrl { get; set; }
 
         public string MainPage { get; set; }
+
+        public string Logo { get; set; }
     }
 }
