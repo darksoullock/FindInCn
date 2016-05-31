@@ -13,7 +13,7 @@ namespace FindInCn.Tests.Helpers
     public class WebHelperTest
     {
         [TestMethod]
-        public void ReturnsValue()
+        public void WebHelperReturnsValue()
         {
             string dir = System.IO.Directory.GetCurrentDirectory();
             string data = WebHelper.GetHttpResponse($@"file:\\{dir}\TestData\text.txt");

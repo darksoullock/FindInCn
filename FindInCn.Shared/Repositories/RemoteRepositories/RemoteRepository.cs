@@ -32,5 +32,13 @@ namespace FindInCn.Shared.Repositories.RemoteRepositories
             IRemoteShop shop = Activator.CreateInstance(Type.GetType(item.ClassName), item) as IRemoteShop;
             return shop;
         }
+
+        public IRemoteShop GetRemoteShop(string name)
+        {
+            var shopRepository = new ShopRepository();
+            var item = shopRepository.GetShopByName(name);
+            IRemoteShop shop = Activator.CreateInstance(Type.GetType(item.ClassName), item) as IRemoteShop;
+            return shop;
+        }
     }
 }

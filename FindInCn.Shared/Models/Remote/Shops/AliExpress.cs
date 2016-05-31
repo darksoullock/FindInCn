@@ -70,7 +70,12 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
         public RemoteItemDetails GetItem(string url)
         {
-            CQ dom = WebHelper.GetHttpResponse("http:"+url.Split('?').First());
+            if (url.StartsWith("//"))
+            {
+                url = "http:" + url;
+            }
+
+            CQ dom = WebHelper.GetHttpResponse(url.Split('?').First());
             var item = new RemoteItemDetails();
             item.ShopId = this.Info.ShopId;
             item.ItemUrl = url;

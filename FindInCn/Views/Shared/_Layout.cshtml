@@ -25,14 +25,17 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">FindInCn</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                    <a style="color:white">Menu <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                </button>
             </div>
-            <div id="navbar">
+            <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right" style="margin-right:100px;">
                     <li><a href="/Home/Favorites">Favorites</a></li>
                     <li><a href="/Home/AdvancedSearch">Search</a></li>
                     <li><a href="#">Help</a></li>
                     <li>
-                        <a  id="registerButton" data-container="body" data-toggle="popover" data-placement="bottom">
+                        <a id="registerButton" data-container="body" data-toggle="popover" data-placement="bottom">
                             Register
                         </a>
                     </li>
@@ -57,7 +60,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
-    
+
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     @Scripts.Render("/Scripts/bootstrap.js")
     <script src="~/scripts/AjaxLogin.js"></script>

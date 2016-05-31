@@ -18,5 +18,10 @@ namespace FindInCn.Shared.Repositories.DbRepositories
         {
             return _db.Shops.FirstOrDefault(i => i.ShopId == id);
         }
+
+        public Shop GetShopByName(string name)
+        {
+            return _db.Shops.FirstOrDefault(i => i.Name == name);
+        }
     }
 }
