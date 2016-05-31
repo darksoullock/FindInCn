@@ -82,5 +82,23 @@ namespace FindInCn.Controllers
         {
             return View();
         }
+
+        public void DeleteFromFavorites(string url)
+        {
+            var user = Session["user"] as User;
+            if (user == null)
+            {
+                return;
+            }
+
+            var repo = new RemoteRepository();
+            accountRepository.RemoveFromFavorites(user.Id, url);
+        }
+
+        public ActionResult Compare(int id1, string url1, int id2, string url2)
+        {
+            
+            return View();
+        }
     }
 }

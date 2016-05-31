@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201605240719529_categoryUrl.Designer.cs">
       <DependentUpon>201605240719529_categoryUrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605311351487_fk_user_favorites.cs" />
+    <Compile Include="Migrations\201605311351487_fk_user_favorites.Designer.cs">
+      <DependentUpon>201605311351487_fk_user_favorites.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB\Category.cs" />
     <Compile Include="Models\DB\CategoryToShopSpecificIdMapping.cs" />
@@ -155,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605240719529_categoryUrl.resx">
       <DependentUpon>201605240719529_categoryUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605311351487_fk_user_favorites.resx">
+      <DependentUpon>201605311351487_fk_user_favorites.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

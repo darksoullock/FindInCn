@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,18 @@ namespace FindInCn.Shared.Repositories.DbRepositories
         public IQueryable<FavoriteItem> GetFavoritesByUserIdAsQueryable(int userId)
         {
             return _db.Favorites.Where(i => i.UserId == userId);
+        }
+
+        public void RemoveFromFavorites(int id, string url)
+        {
+            url = WebUtility.UrlDecode(url);
+            var item = _db.Favorites.FirstOrDefault(i => i.ItemUrl == url);
+            if (item?.UserId==id)
+            {
+                _db.Favorites.Remove(item);
+                _db.SaveChanges();
+            }
+            
         }
     }
 }

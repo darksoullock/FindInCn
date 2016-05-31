@@ -70,16 +70,20 @@ namespace FindInCn.Shared.Models.Remote.Shops
 
         public RemoteItemDetails GetItem(string url)
         {
+            var item = new RemoteItemDetails();
+            item.ShopId = this.Info.ShopId;
+            item.ItemUrl = url;
+
             if (url.StartsWith("//"))
             {
                 url = "http:" + url;
             }
 
-            CQ dom = WebHelper.GetHttpResponse(url.Split('?').First());
-            var item = new RemoteItemDetails();
-            item.ShopId = this.Info.ShopId;
-            item.ItemUrl = url;
+            //url = url.Split('?').First();
+
+            CQ dom = WebHelper.GetHttpResponse(url);
             item.ImageUrl = dom["meta"]?.FirstOrDefault(i => i.GetAttribute("property") == "og:image")?.GetAttribute("content");
+                        
             item.Title = WebUtility.HtmlDecode(dom["title"].Html());
 
             dom = dom[".product-property-list"];

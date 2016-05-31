@@ -6,18 +6,54 @@
 
 <h2 style="text-align:center;">Favorites</h2>
 
+<script>
+    var first = true;
+    var furl = '';
+    var fid = 0;
+    function compare(url, shopid, bid)
+    {
+        $('#'+bid).attr('disabled', 'disabled');
+
+        if (first){
+            first = false;
+            furl = url;
+        }
+        else{
+            location.href='/Home/Compare?id1='+fid+'url1='+furl+'id2='+shopid+'url2='+url;
+        }
+    }
+
+    function removef(id, urlq )
+    {
+        $('#tr'+id).remove();
+
+        $.ajax({
+            method: "GET",
+            url: "/Home/DeleteFromFavorites",
+            data: {url: urlq}});
+    }
+</script>
+
 <table class="table table-striped">
+
+    @{ 
+        int index = 0;
+    }
+
     @foreach (var item in Model)
     {
-        <tr>
+        <tr id="tr@(++index)">
             <td>
-                <a class="thumbnail" href="/Home/ItemDetails?shopId=@item.ShopId&url=@item.ItemUrl">
+                <a class="thumbnail" href="@item.ItemUrl"> @*href="/Home/ItemDetails?shopId=@item.ShopId&url=@item.ItemUrl"*@>
                     <img class="media-object" style="width:150px;" src="@item.ImageUrl" alt="...">
                 </a>
             </td>
 
             <td>
                 @item.Title
+                <br />
+                <a  class="btn btn-danger btn-xs" role="button" onclick="removef(@index, '@WebUtility.UrlEncode(item.ItemUrl)')" style="float:right; margin-left:5px;">delete</a>
+                <a id="@index" class="btn btn-default btn-xs" onclick="compare('@item.ItemUrl', @item.ShopId, @index)" role="button" style="float:right;">Add to compare</a>
             </td>
         </tr>
     }
