@@ -17,9 +17,10 @@
         if (first){
             first = false;
             furl = url;
+            fid = shopid;
         }
         else{
-            location.href='/Home/Compare?id1='+fid+'url1='+furl+'id2='+shopid+'url2='+url;
+            location.href='/Home/Compare?id1='+fid+'&url1='+furl+'&id2='+shopid+'&url2='+url;
         }
     }
 

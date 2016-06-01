@@ -97,8 +97,27 @@ namespace FindInCn.Controllers
 
         public ActionResult Compare(int id1, string url1, int id2, string url2)
         {
-            
-            return View();
+            var repo = new RemoteRepository();
+            var item1 = repo.GetRemoteShop(id1).GetItem(url1);
+            var item2 = repo.GetRemoteShop(id2).GetItem(url2);
+
+            ViewBag.I1 = item1;
+            ViewBag.I2 = item2;
+
+            var p1 = item1.Properties;
+            var p2 = item2.Properties;
+            var result = new List<Tuple<string, string, string>>();
+            foreach (var i in p1)
+            {
+                var item = new Tuple<string, string, string>(
+                    i.Name, i.Value, p2.FirstOrDefault(j => i.Name == j.Name)?.Value);
+                result.Add(item);
+            }
+
+            result.AddRange(p2.Where(i => p1.FirstOrDefault(j => i.Name == j.Name) == null)
+                .Select(i => new Tuple<string, string, string>(i.Name, null, i.Value)));
+
+            return View(result.OrderBy(i => i.Item2 == null || i.Item3 == null));
         }
     }
 }

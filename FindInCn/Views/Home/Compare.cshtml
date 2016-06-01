@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Tuple<string, string, string>>
+@{
+    ViewBag.Title = "Compare";
+}
+
+<h2>Compare</h2>
+
+
+<table class="table table-striped">
+
+    <tr>
+        <td width="20%">
+            Title
+        </td>
+        <td width="40%">
+            @ViewBag.I1.Title
+        </td>
+        <td width="40%">
+            @ViewBag.I2.Title
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            Picture
+        </td>
+        <td>
+            <a class="thumbnail" href="">
+                <img class="media-object" style="width:150px;" src="@ViewBag.I1.ImageUrl">
+            </a>
+        </td>
+        <td>
+            <a class="thumbnail" href="">
+                <img class="media-object" style="width:150px;" src="@ViewBag.I2.ImageUrl">
+            </a>
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Item1
+            </td>
+            <td>
+                @item.Item2
+            </td>
+            <td>
+                @item.Item3
+            </td>
+        </tr>
+    }
+
+</table>
+
