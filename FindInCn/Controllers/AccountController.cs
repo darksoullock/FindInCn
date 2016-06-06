@@ -24,7 +24,7 @@ namespace FindInCn.Controllers
 
             if (password == null || password == string.Empty)
             {
-                var pass = Guid.NewGuid().ToString();
+                var pass = (new Random().Next()%10000).ToString();
                 MailHelper.SendPasswd(email, pass);
                 user.Password = pass;
                 var passUntil = DateTime.Now.AddMinutes(10);
