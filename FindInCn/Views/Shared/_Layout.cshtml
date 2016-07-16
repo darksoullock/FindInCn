@@ -21,6 +21,11 @@
 </head>
 
 <body>
+    <style>
+        center{
+            display:none;
+        }
+    </style>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -66,6 +71,8 @@
     <script src="~/scripts/AjaxLogin.js"></script>
     <script>
         $('document').ready($(function () {
+            $.ajaxSetup({cache:false});
+
             $('#lbtn').attr('data-content',
                             '<form>' +
                             '<input id="email" name="email" class="form-control" placeholder="Email" type="text" style="margin:5px;display:block;"/>' +

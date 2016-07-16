@@ -11,6 +11,7 @@
             url: "/Home/AjaxSearch",
             data: {
                 q: '@ViewBag.q',
+                sort: '@ViewBag.sort',
             },
             error: function () { alert('error'); }
         }).done(function (html) {
@@ -25,13 +26,30 @@
         <div class="panel-heading" role="tab" id="headingOne">
             <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Advanced search options and sorting
+                    Search options
                 </a>
             </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                <div>Sort by name</div>
+                <div style="float:right;">
+                    <span id="sort" onclick="$(function(){$('#sort').attr('style', 'color:red;')});" class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-sort-by-order-alt" aria-hidden="true"></span>
+                </div>
+                <br />
+
+                <div>Sort by shop name</div>
+                <div style="float:right;">
+                    <span onclick="$(function(){alert()});" class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-sort-by-alphabet-alt" aria-hidden="true"></span>
+                </div>
+                <br />
+                <form method="get" action="/Home/Search">
+                    <input type="hidden" value="@ViewBag.q" name="q" />
+                    <input type="hidden" value="name" name="sort" />
+                    <input style="margin-top:5px;" type="submit" class="btn btn-success" value="Go!" />
+                </form>
             </div>
         </div>
     </div>

@@ -58,8 +58,7 @@ function login() {
             password: $('#password').val()
         },
         error: function () { alert('error'); }
-    }).done(function (jsonString) {
-        var data = JSON.parse(jsonString);
+    }).done(function (data) {
         if (data.status == 'sent') {
             $('#dologin').html('Login');
             $('#password').removeAttr('disabled');

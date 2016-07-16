@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Mail;
+using System.Net;
 
 namespace FindInCn.Controllers
 {
@@ -24,16 +26,21 @@ namespace FindInCn.Controllers
             return View();
         }
 
-        public ActionResult Search(string q)
+        public ActionResult Search(string q, string sort)
         {
             ViewBag.q = System.Net.WebUtility.HtmlEncode(q);
+            ViewBag.sort = sort;
             return View();
         }
 
-        public ActionResult AjaxSearch(string q)
+        public PartialViewResult AjaxSearch(string q, string sort)
         {
             var shops = remoteRepository.GetRemoteShops();
             var result = RemoteHelper.Search(shops, new SearchOptions() { Name = q });
+            if (sort != null && sort != string.Empty)
+            {
+                result = result.OrderBy(i=>i.Name);
+            }
 
             return PartialView(result.ToArray());
         }

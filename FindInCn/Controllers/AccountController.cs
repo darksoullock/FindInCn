@@ -14,6 +14,7 @@ namespace FindInCn.Controllers
     {
         public string AjaxLogin(string email, string password)
         {
+            Response.ContentType = "application/json";
             AccountRepository _db = new AccountRepository();
             var user = _db.GetUserByEmail(email);
             var jss = new JavaScriptSerializer();
@@ -66,6 +67,7 @@ namespace FindInCn.Controllers
 
         public string AjaxRegister(string name, string email)
         {
+            Response.ContentType = "application/json";
             AccountRepository _db = new AccountRepository();
             if (!email.Contains('@'))
             {
@@ -75,7 +77,7 @@ namespace FindInCn.Controllers
             var user = _db.GetUserByEmail(email);
             if (user == null)
             {
-                user = new User() { Name = name, Email = email, IsActive = false };
+                user = new User() { Name = name, Email = email, IsActive = false, PassExpiration = DateTime.Now.AddDays(3) };
                 _db.AddUser(user);
             }
 
